@@ -1,5 +1,5 @@
 import math
-import bissection as bisect
+import bisection as bisect
 #Constants
 Alpha = 0.2
 Beta = 2
@@ -11,5 +11,8 @@ def butlerVolmer(x):
 
 # Goal: Find f(x) = 0
 iteractions = 20
-bissectionGuess = bisect.bissection(butlerVolmer,-5,5,iteractions)
-print(f"Bissection Guess after {iteractions}: {bissectionGuess}")
+error = 1.0e-1
+bisectionGuess = bisect.bisectionIteration(butlerVolmer,-5,5,iteractions)
+print(f"Bisection Guess after {iteractions}: {bisectionGuess}")
+bisectionErrorGuess = bisect.bisectionError(butlerVolmer, -5, 5, error)
+print(f"Bisection Guess with {error} error: {bisectionErrorGuess}")
