@@ -1,5 +1,5 @@
 import math
-import bissection as bisect
+import bisection as bisect
 import secant as sec
 import newton as new
 
@@ -14,10 +14,13 @@ def butlerVolmer(x):
 
 # Goal: Find f(x) = 0
 iteractions = 20
-bissectionGuess = bisect.bissection(butlerVolmer,-5,5,iteractions)
+error = 1.0e-1
+bissectionGuess = bisect.bisectionIteration(butlerVolmer,-5,5,iteractions)
+bisectionErrorGuess = bisect.bisectionError(butlerVolmer, -5, 5, error)
 secantGuess, secantIter = sec.secant(butlerVolmer,-5,5)
 newtonGuess, newtonIter = new.newton(butlerVolmer, -5)
 
 print(f"Bissection Guess after {iteractions}: {bissectionGuess}")
+print(f"Bisection Guess with {error} error: {bisectionErrorGuess}")
 print(f"Secant Guess after {secantIter}: {secantGuess}")
 print(f"Newton Guess after {newtonIter}: {newtonGuess}")
