@@ -1,5 +1,7 @@
 import math
 import bissection as bisect
+import secant as sec
+
 #Constants
 Alpha = 0.2
 Beta = 2
@@ -12,4 +14,6 @@ def butlerVolmer(x):
 # Goal: Find f(x) = 0
 iteractions = 20
 bissectionGuess = bisect.bissection(butlerVolmer,-5,5,iteractions)
+secantGuess, secantIter = sec.secant(butlerVolmer,-5,5)
 print(f"Bissection Guess after {iteractions}: {bissectionGuess}")
+print(f"Secant Guess after {secantIter}: {secantGuess}")
