@@ -1,6 +1,7 @@
 import math
 import bissection as bisect
 import secant as sec
+import newton as new
 
 #Constants
 Alpha = 0.2
@@ -15,5 +16,8 @@ def butlerVolmer(x):
 iteractions = 20
 bissectionGuess = bisect.bissection(butlerVolmer,-5,5,iteractions)
 secantGuess, secantIter = sec.secant(butlerVolmer,-5,5)
+newtonGuess, newtonIter = new.newton(butlerVolmer, -5)
+
 print(f"Bissection Guess after {iteractions}: {bissectionGuess}")
 print(f"Secant Guess after {secantIter}: {secantGuess}")
+print(f"Newton Guess after {newtonIter}: {newtonGuess}")
