@@ -13,14 +13,14 @@ def butlerVolmer(x):
     return Euler**(Alpha*x)-Euler**((Alpha-1)*x)-Beta
 
 # Goal: Find f(x) = 0
-iteractions = 20
+iterations = 17
 error = 1.0e-1
-bissectionGuess = bisect.bisectionIteration(butlerVolmer,-5,5,iteractions)
+bissectionGuess = bisect.bisectionIteration(butlerVolmer,-5,5,iterations)
 bisectionErrorGuess = bisect.bisectionError(butlerVolmer, -5, 5, error)
 secantGuess, secantIter = sec.secant(butlerVolmer,-5,5)
 newtonGuess, newtonIter = new.newton(butlerVolmer, -5)
 
-print(f"Bissection Guess after {iteractions}: {bissectionGuess}")
+print(f"Bissection Guess after {iterations}: {bissectionGuess}")
 print(f"Bisection Guess with {error} error: {bisectionErrorGuess}")
 print(f"Secant Guess after {secantIter}: {secantGuess}")
 print(f"Newton Guess after {newtonIter}: {newtonGuess}")

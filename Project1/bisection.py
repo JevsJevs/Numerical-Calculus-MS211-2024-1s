@@ -1,3 +1,5 @@
+import sys
+
 def bisectionIteration(func, a, b, iter):
     left = a
     right = b
@@ -25,7 +27,7 @@ def bisectionError(func, a, b, err):
     left = a
     right = b
 
-    fx = 100000000000
+    fx = sys.maxsize
 
     while abs(fx) > err:
         x = (left+right)/2
