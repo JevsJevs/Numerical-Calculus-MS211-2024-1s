@@ -1,4 +1,5 @@
 import math
+import error as errorClass
 import bisection as bisect
 import secant as sec
 import newton as new
@@ -12,15 +13,35 @@ Euler = math.e
 def butlerVolmer(x):
     return Euler**(Alpha*x)-Euler**((Alpha-1)*x)-Beta
 
+# Prompts for custom code execution
+iterations = int(input("Maximo de iteracoes: "))
+
+errSelect = None
+while errSelect == None:
+    try:
+        errSelect = input("Qual tipo de erro quer usar? r - relativo | a - absoluto:")
+        errSelect.lower()
+        if errSelect != 'r' and errSelect != 'a':
+            raise ValueError
+    except:
+        errSelect = None
+
+errorValue = None
+while errorValue == None:
+    try:
+        errorValue = float(input("Valor do erro[separador .]:"))
+    except:
+        errorValue = None
+
+errObj = errorClass.absoluteError(errorValue) if errSelect == "a" else errorClass.relativeError(errorValue)
+errorType = "absolute error" if errSelect == "a" else "relative error"
+
 # Goal: Find f(x) = 0
-iterations = 17
-error = 1.0e-1
-bissectionGuess = bisect.bisectionIteration(butlerVolmer,-5,5,iterations)
-bisectionErrorGuess = bisect.bisectionError(butlerVolmer, -5, 5, error)
 secantGuess, secantIter = sec.secant(butlerVolmer,-5,5)
 newtonGuess, newtonIter = new.newton(butlerVolmer, -5)
+bisectGuess = bisect.bisection(butlerVolmer, -5, 5, iterations, errObj)
 
-print(f"Bissection Guess after {iterations}: {bissectionGuess}")
-print(f"Bisection Guess with {error} error: {bisectionErrorGuess}")
+print("===============================================Results==========================================================\n")
+print(f"Bisection Guess using {errorType} with {errObj.error} precision [Max iterations {iterations}]: {bisectGuess}")
 print(f"Secant Guess after {secantIter}: {secantGuess}")
 print(f"Newton Guess after {newtonIter}: {newtonGuess}")
