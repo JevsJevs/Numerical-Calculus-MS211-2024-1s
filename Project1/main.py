@@ -13,6 +13,10 @@ Euler = math.e
 def butlerVolmer(x):
     return Euler**(Alpha*x)-Euler**((Alpha-1)*x)-Beta
 
+# f'(x) => Butler-Volmer Derived Equation
+def d_butlerVolmer(x):
+    return Alpha*(Euler**(Alpha * x)) - (Alpha - 1)*(Euler**((Alpha - 1) * x))
+
 # Prompts for custom code execution
 iterations = int(input("Maximo de iteracoes: "))
 
@@ -38,10 +42,10 @@ errorType = "absolute error" if errSelect == "a" else "relative error"
 
 # Goal: Find f(x) = 0
 secantGuess, secantIter = sec.secant(butlerVolmer,-5,5)
-newtonGuess, newtonIter = new.newton(butlerVolmer, -5)
+newtonGuess, newtonIter = new.newton(butlerVolmer, d_butlerVolmer, -5, iterations, errObj)
 bisectGuess = bisect.bisection(butlerVolmer, -5, 5, iterations, errObj)
 
 print("===============================================Results==========================================================\n")
 print(f"Bisection Guess using {errorType} with {errObj.error} precision [Max iterations {iterations}]: {bisectGuess}")
 print(f"Secant Guess after {secantIter}: {secantGuess}")
-print(f"Newton Guess after {newtonIter}: {newtonGuess}")
+print(f"Newton Guess after {newtonIter} with {errObj.error} precision [Max iterations {iterations}]: {newtonGuess}")
