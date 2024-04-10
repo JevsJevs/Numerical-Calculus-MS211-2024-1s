@@ -37,15 +37,22 @@ while errorValue == None:
     except:
         errorValue = None
 
+initialGuess = None
+while initialGuess == None:
+    try:
+        initialGuess = float(input("Chute um valor inicial [para Métodos de Newton e Secante]:"))
+    except:
+        initialGuess = None
+
 errObj = errorClass.absoluteError(errorValue) if errSelect == "a" else errorClass.relativeError(errorValue)
 errorType = "absolute error" if errSelect == "a" else "relative error"
 
 # Goal: Find f(x) = 0
 secantGuess, secantIter = sec.secant(butlerVolmer,-5,5)
-newtonGuess, newtonIter = new.newton(butlerVolmer, d_butlerVolmer, -5, iterations, errObj)
+newtonGuess, newtonIter = new.newton(butlerVolmer, d_butlerVolmer, initialGuess, iterations, errObj)
 bisectGuess = bisect.bisection(butlerVolmer, -5, 5, iterations, errObj)
 
 print("===============================================Results==========================================================\n")
 print(f"Bisection Guess using {errorType} with {errObj.error} precision [Max iterations {iterations}]: {bisectGuess}")
 print(f"Secant Guess after {secantIter}: {secantGuess}")
-print(f"Newton Guess after {newtonIter} with {errObj.error} precision [Max iterations {iterations}]: {newtonGuess}")
+print(f"Newton Guess after {newtonIter} iterations using {errorType} with {errObj.error} precision and {initialGuess} as initial guess [Max iterations {iterations}]: {newtonGuess}")

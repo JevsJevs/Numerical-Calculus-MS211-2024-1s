@@ -4,9 +4,6 @@ import error as err
 def zero_func(fa, ga, a):
     return a - (fa/ga)
 
-def calc_error(x, x_barra):
-    return abs(x - x_barra)/x_barra
-
 def newton(func, d_func, a, iter, error):
     relError = sys.maxsize
     prevX = sys.maxsize
@@ -29,3 +26,6 @@ def newton(func, d_func, a, iter, error):
 
         a = zero_func(fa, ga, a)
         i += 1
+
+    a = "Método de Newton não converge para dado Número Máximo de Iterações e Valor do Erro"
+    return a, i
