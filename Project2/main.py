@@ -1,12 +1,14 @@
 import math
 import euller as method1
 import rungeKutta4 as method2
+import matplotlib.pyplot as plt
+
 
 #parameters:
-a, b = [0, 4]
+a, b = [0, 10]
 r = 0.5
 k = 10
-h = 0.05
+h = 5
 y0 = 1
 Euller = math.e
 
@@ -18,9 +20,28 @@ def func(t, y):
 def func_analitic(t):
     return k*y0*Euller**(r*t)/(k+y0*(Euller**(r*t)-1))
 
-print(method1.euller(a, b, h, y0, func))
-print(method2.rungeKutta4(a, b, h, y0, func))
-print(func_analitic(b))
+def list_analitic():
+    list = []
+    n = int((b-a)/h)
+    for i in range(n+1):
+        t = a+i*h
+        list.append((t, func_analitic(t)))
+    return list
+
+#run methods
+listEuller = method1.euller(a, b, h, y0, func)
+listRK = method2.rungeKutta4(a, b, h, y0, func)
+listAnalitic = list_analitic()
+
+print(listEuller[-1][-1])
+print(listRK[-1][-1])
+print(listAnalitic[-1][-1])
+
+#plot
+plt.plot(*zip(*listEuller), label='Euller', color='red')
+plt.plot(*zip(*listRK), label='Runge-Kutta 4', color = 'green')
+plt.plot(*zip(*listAnalitic), label='Analitic', color = 'blue')
+plt.show()
 
 
 
