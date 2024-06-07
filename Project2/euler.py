@@ -1,6 +1,5 @@
-def euller(a, b, h, y0, func):
+def euler(a, b, h, n, y0, func):
     list = []
-    n = int((b-a)/h)
     list.append((a, y0))
     yf = y0
     for i in range(n):
